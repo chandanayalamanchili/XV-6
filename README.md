@@ -1,4 +1,3 @@
-                                                                 MINI PROJECT-2
                                                               SCHEDULING POLICIES
 FIRST COME FIRST SERVE:
 1. Modified struct proc
@@ -66,6 +65,13 @@ Implementation of the snippet:
     6. if (a > time_slice) {: This conditional check compares the time the process has been running (a) with its assigned time-slice (time_slice). If the process has exceeded its time-slice, the following actions are taken:
         ◦ p->qtic[z] += a;: The qtic array of the process is updated with the accumulated running time at its current priority level z. This helps in tracking how much CPU time the process has consumed at each priority level.
         ◦ if (z < 3) { z++; }: If the process has not yet reached the lowest priority level (Priority 3), it is moved to the next lower priority queue by incrementing z. This is an essential part of MLFQ scheduling, where processes are demoted to lower priority queues if they consume too much CPU time.
+
+
+        PBS:
+
+For Round Robin: Average rtime = 14, wtime = 120 For PBS: Average rtime = 10, wtime = 116 This show that priority based scheduling is better than Round Robin Scheduling. Analysis:
+
+• Static Priority indicates user-defined priority that represents the inherent importance of a process. • Lower the SP values higher the priority and vice versa. • Using set_priority system call user sets the static priority of process. • SP allows users to influence the scheduling order based on their perception of the importance of a process. • Users can adjust priorities dynamically, responding to changing workload characteristics or application requirements. • Recent Behavior Index is a weighted sum of Running Time (RTime), Sleeping Time (STime), and Waiting Time (WTime). • RBI is used to adjust DP, reflecting the recent behavior of a process. • It is a dynamic parameter that evolves over time based on how a process utilizes the CPU and waits in the ready queue. • RBI accounts for the recent behavior of a process, giving a more dynamic and adaptive aspect to priority assignment. • Higher values of RBI indicate that a process has been waiting or sleeping more than it has been running, potentially leading to a higher DP. • Lower values of RBI suggest that a process has been actively using the CPU, potentially leading to a lower DP. • Overall Observations: • The combination of SP and RBI provides a flexible and adaptable priority system. • Users can influence the initial priority (SP) based on their understanding of application requirements. • RBI ensures that the scheduler considers recent behavior, preventing starvation of processes that may have been waiting for a long time. • The scheduler's ability to consider both SP and dynamically adjust priorities based on RBI contributes to a balanced approach to process prioritization. • Considerations: • The effectiveness of the priority system may depend on workload characteristics and the diversity of applications running on the system. • Fine-tuning the weightings in RBI or the range of SP values may be necessary based on real-world usage and performance evaluations.
         ◦ p->en_time = ticks;: The en_time of the process is updated to the current system time (ticks), indicating that it is starting a new time-slice.
         ◦ p->cqueue = z;: The cqueue attribute of the process is updated to reflect its new priority queue, which is now z.
 
